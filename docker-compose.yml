@@ -1,0 +1,49 @@
+version: "3.8"
+services:
+  tntchildren:
+    image: toolsntuts/tntchildren:latest
+    restart: always
+    ports:
+      - "3000"
+    networks:
+      - dokploy-network
+    environment:
+      # Server config
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+      - PORT=3000
+      - ORIGIN=https://children.toolsntuts.com
+
+      # Better Auth
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=https://children.toolsntuts.com
+      - BETTER_API_URL=https://children.toolsntuts.com/api/auth
+
+      # Database
+      - DATABASE_URL=${DATABASE_URL}
+
+      # Google OAuth
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - REDIRECT_URI=https://children.toolsntuts.com/api/auth/callback/google
+
+      # MinIO
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+      - MINIO_BUCKET=${MINIO_BUCKET}
+
+      # Webhooks
+      - EMAIL_WEBHOOK=${EMAIL_WEBHOOK}
+      - BODY_SIZE_LIMIT=10485760
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tntchildren.rule=Host(`children.toolsntuts.com`)"
+      - "traefik.http.routers.tntchildren.entrypoints=websecure"
+      - "traefik.http.routers.tntchildren.tls.certresolver=letsencrypt"
+      - "traefik.http.services.tntchildren.loadbalancer.server.port=3000"
+
+networks:
+  dokploy-network:
+    external: true

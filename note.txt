@@ -1,0 +1,58 @@
+I need you to convert this application to a world class children christian platform for not just spiritual values but capacity building in the marketplace. We'll start with biblical values and spiritual edification. The first is the blogs. These are to be comics where children of all age groups come and be edified and learn more about the bible. The age groups I'm referring to are
+- 0 - 3 years
+- 4 - 6 years
+- 7 - 9 years 
+- 10 - 12 years (Pre teens)
+- 13 - 19 years (Teenagers)
+- 20 and above (Young Adults)
+
+I have given you the WINDMILL_TOKEN and WINDMILL_MCP_URL connect to the saas workspace in windmill and do the following
+- remove every netora script in the saas workspace
+- save the environment variables and preceed the variable or resource name with TNTCHILDREN_ so you can identify them from the others there because there are others there
+
+MINIO_ENDPOINT
+MINIO_PUBLIC_ENDPOINT
+MINIO_PORT
+MINIO_USE_SSL
+MINIO_REGION
+MINIO_ROOT_USER
+MINIO_ROOT_PASSWORD
+MINIO_BUCKET
+CF_WORKERS_AI_API_TOKEN
+CF_WORKERS_AI_ACCOUNT_ID
+DATABASE_URL
+TAVILY_API
+
+So you can reuse as resources or variables to talk to the minio bucket, database, tavily endpoint for grounded factual information or grounded search
+
+Here is a sample blog that was generated with windmill. The blog sandwiched the cartoon or comic in between actual content. I don't need the actual content. I just want you to see how the comic is generated.
+- C:\Users\brnkg\OneDrive\Documents\code\sveltekit\toolsntuts\children\resources\daily-blog-generator.ts
+
+I have added This present darkness here:
+- C:\Users\brnkg\OneDrive\Documents\code\sveltekit\toolsntuts\children\resources\this_present_darkness_frank_e_peretti.pdf
+
+I don't need you to copy the content. But observe the style the story teller used in composing the book and adapt same.
+
+I have also added a pdf copy of the NKJV bible
+- C:\Users\brnkg\OneDrive\Documents\code\sveltekit\toolsntuts\children\resources\The Holy Bible - New King James Version - NKJV (DOC).pdf
+
+Whatever story you tell must be grounded in fact, and must be biblically sound. It must lead the readers to salvation as well as the desire to know God.
+
+I need the characters, places and things character consistent and the comic must be in series form. Though like a blog but comics that capture the attention of children of all ages and points them to Knowing The true God and Jesus Christ whom He has sent.
+
+It must be filled with suspense, and must have the capacity to captivate the readers, keep them engaged and lead them into the presence of God.
+
+I need it to capture every biblical theme. From Genesis to Revelation and must be age appropriate.
+
+- 0 - 3 years
+- 4 - 6 years
+- 7 - 9 years 
+- 10 - 12 years (Pre teens)
+- 13 - 19 years (Teenagers)
+- 20 and above (Young Adults)
+
+So I'm expecting 6 comics 1 for each age group per day and they must link to the other in terms of storyline as well as character and environment and visually consistent
+
+The comics must start with a captivating cover photo showing the characters and the peak action of the comic. If you've seen Naruto comics, you'd see what I mean. the cover photo captures the climax of the story. I don't want you to use the japanese style but use modern style as relates to nigeria or different countries wherever the comic leads. It must be realistic. Now text on images may not work not to worry, you can generate the pictures and put the text as the blog text. Attached is how the dhub cartoon looks. I just pasted the content of the blog in between. The story is what matters.
+
+It should be something similar, though more pictures

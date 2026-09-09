@@ -1,0 +1,452 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@variant dark (&:is(.dark *));
+
+:root {
+  --font-sans: Geist, ui-sans-serif, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: Geist Mono, ui-monospace, monospace;
+
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #a63391;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #171717;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f5f5f5;
+  --accent-foreground: #171717;
+  --destructive: #e7000b;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a63391;
+  --chart-1: #91c5ff;
+  --chart-2: #3a81f6;
+  --chart-3: #2563ef;
+  --chart-4: #1a4eda;
+  --chart-5: #1f3fad;
+  --sidebar: #fafafa;
+  --sidebar-foreground: #0a0a0a;
+  --sidebar-primary: #a63391;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f5f5f5;
+  --sidebar-accent-foreground: #171717;
+  --sidebar-border: #e5e5e5;
+  --sidebar-ring: #a63391;
+  
+  --shadow-color: #000000;
+  --shadow-2xs: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.05);
+  --shadow-xs: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.05);
+  --shadow-sm: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1), 0 1px 2px -1px rgb(from var(--shadow-color) r g b / 0.1);
+  --shadow: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1), 0 1px 2px -1px rgb(from var(--shadow-color) r g b / 0.1);
+  --shadow-md: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1), 0 2px 4px -1px rgb(from var(--shadow-color) r g b / 0.1);
+  --shadow-lg: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1), 0 4px 6px -1px rgb(from var(--shadow-color) r g b / 0.1);
+  --shadow-xl: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1), 0 8px 10px -1px rgb(from var(--shadow-color) r g b / 0.1);
+  --shadow-2xl: 0 1px 3px 0px rgb(from var(--shadow-color) r g b / 0.1);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --card: #171717;
+  --card-foreground: #fafafa;
+  --popover: #262626;
+  --popover-foreground: #fafafa;
+  --primary: #a63391;
+  --primary-foreground: #ffffff;
+  --secondary: #262626;
+  --secondary-foreground: #fafafa;
+  --muted: #262626;
+  --muted-foreground: #a1a1a1;
+  --accent: #404040;
+  --accent-foreground: #fafafa;
+  --destructive: #ff6467;
+  --border: #ffffff1a;
+  --input: #ffffff26;
+  --ring: #a63391;
+  --chart-1: #91c5ff;
+  --chart-2: #3a81f6;
+  --chart-3: #2563ef;
+  --chart-4: #1a4eda;
+  --chart-5: #1f3fad;
+  --sidebar: #171717;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #a63391;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #ffffff1a;
+  --sidebar-ring: #a63391;
+  
+  --shadow-color: #000000;
+}
+
+@theme inline {
+  --font-sans: Geist, ui-sans-serif, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  --font-mono: Geist Mono, ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--muted); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: var(--muted-foreground); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--foreground); }
+
+*,
+*::before,
+*::after {
+  font-family:
+    Figtree,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  scroll-behavior: smooth;
+}
+
+@utility gsgreen {
+  @apply bg-green-500/10 text-green-800 dark:bg-green-800/30 dark:text-green-500;
+}
+
+@utility gsred {
+  @apply bg-red-500/10 text-red-800 dark:bg-red-800/30 dark:text-red-500;
+}
+
+@utility gsorange {
+  @apply bg-orange-500/10 text-orange-600 dark:bg-orange-800/30 dark:text-orange-500;
+}
+
+@utility gsprimary {
+  @apply bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary;
+}
+
+@utility center {
+  @apply max-w-[1440px] mx-auto px-2;
+}
+
+@utility padded {
+  @apply px-4 sm:px-0;
+}
+
+@utility cpr {
+  @apply bg-orange-100 text-orange-700 text-xs;
+}
+
+@utility status-badge {
+  @apply px-3 py-1 rounded-full text-xs font-bold;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: 6s ease-in-out 0s infinite normal none running float;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.floating-icon { animation: float 3s ease-in-out infinite; }
+.floating-icon-delayed { animation: float 3s ease-in-out infinite 0.5s; }
+.floating-icon-delayed-2 { animation: float 3s ease-in-out infinite 1s; }
+.glow-card { animation: pulse-glow 3s ease-in-out infinite; }
+.shimmer-text {
+  background: linear-gradient(90deg, hsl(var(--foreground)) 0%, hsl(var(--primary)) 50%, hsl(var(--foreground)) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+.feature-item { transition: all 0.3s ease; }
+.feature-item:hover { transform: translateX(8px); }
+
+/* ---------------------------------------------------------------------------
+   Generated blog article styling.
+   These class names are emitted by the Windmill daily blog generator
+   (windmill/daily-blog-generator.ts) and injected via {@html}, so they cannot
+   be scoped to a component.
+   --------------------------------------------------------------------------- */
+
+/* The answer-first block that AI engines quote. */
+.prose .blog-answer {
+  border-left: 4px solid hsl(var(--primary));
+  background: hsl(var(--primary) / 0.06);
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 1.05em;
+}
+
+.prose .blog-takeaways {
+  background: hsl(var(--muted) / 0.4);
+  border-left: 4px solid hsl(var(--primary) / 0.4);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  font-style: normal;
+}
+
+.prose .blog-figure { margin: 2rem 0; }
+.prose .blog-figure img { border-radius: 0.75rem; width: 100%; height: auto; }
+.prose .blog-figure figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Comparison tables must scroll inside their own box, never widen the page. */
+.prose .blog-table-wrap {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.75rem;
+}
+.prose .blog-table { margin: 0; width: 100%; border-collapse: collapse; font-size: 0.925em; }
+.prose .blog-table caption {
+  caption-side: top;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  background: hsl(var(--muted) / 0.4);
+}
+.prose .blog-table th,
+.prose .blog-table td {
+  padding: 0.625rem 1rem;
+  border-top: 1px solid hsl(var(--border));
+  text-align: left;
+  vertical-align: top;
+}
+.prose .blog-table thead th { background: hsl(var(--muted) / 0.25); font-weight: 600; }
+
+/* The looping comic strip. */
+.prose .comic-strip { margin: 2.5rem 0; }
+.prose .comic-strip img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 10px 30px -12px hsl(var(--foreground) / 0.25);
+}
+.prose .comic-strip figcaption { margin-top: 0.75rem; text-align: left; }
+.prose .comic-strip__beats {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: grid;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+.prose .comic-strip__beats li { margin: 0; display: flex; gap: 0.5rem; align-items: baseline; }
+.prose .comic-strip__beat {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* FAQ block (also the source of FAQPage structured data). */
+.prose .blog-faq__item { padding-bottom: 0.5rem; }
+.prose .blog-faq__item h3 { margin-bottom: 0.35rem; }
+
+@media (min-width: 640px) {
+  .prose .comic-strip__beats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------------------------------------------------------------------------
+   The illustrated story inside each generated article — laid out like a
+   newspaper weekend feature: prose to read, a picture beside each beat.
+   --------------------------------------------------------------------------- */
+.prose .story {
+  margin: 3rem 0;
+  padding: 1.75rem 1.25rem 1.25rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  background: hsl(var(--muted) / 0.25);
+}
+
+.prose .story__masthead { text-align: center; margin-bottom: 2rem; }
+.prose .story__kicker {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+.prose .story__title { margin: 0.35rem 0 0.5rem; font-size: 1.75rem; line-height: 1.15; }
+.prose .story__logline {
+  margin: 0 auto;
+  max-width: 46ch;
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+}
+.prose .story__cast {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0.75rem 0 0;
+  border-top: 1px solid hsl(var(--border));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.25rem;
+  font-size: 0.8125rem;
+  color: hsl(var(--muted-foreground));
+}
+.prose .story__cast li { margin: 0; padding: 0; }
+
+.prose .story__beat { display: grid; gap: 1rem 1.75rem; margin-bottom: 2.25rem; }
+.prose .story__beat-heading { margin-top: 0; margin-bottom: 0.5rem; font-size: 1.15rem; }
+.prose .story__text > p:last-child { margin-bottom: 0; }
+
+.prose .story__figure { margin: 0; }
+.prose .story__figure img {
+  /* prose applies a 2em block margin to bare <img>; zero it so the caption
+     stays tight to the picture and the float hugs the text. */
+  margin: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border));
+}
+.prose .story__figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: hsl(var(--muted-foreground));
+  border-left: 3px solid hsl(var(--primary) / 0.35);
+  padding-left: 0.625rem;
+}
+
+/* Desktop: float the picture and let the prose wrap around it, the way a
+   newspaper sets a photo into a column. A two-column grid would stretch every
+   beat to the height of its tallest side and leave dead space beside the
+   shorter one. The float is cleared per beat so the next one starts below.
+   Sides alternate via data-beat, which is stable regardless of how many
+   siblings the masthead adds. */
+@media (min-width: 768px) {
+  .prose .story__beat { display: block; }
+  .prose .story__beat::after { content: ""; display: block; clear: both; }
+
+  .prose .story__figure {
+    float: right;
+    width: 45%;
+    max-width: 23rem;
+    margin: 0.35rem 0 1.25rem 1.75rem;
+  }
+
+  .prose .story__beat[data-beat="2"] .story__figure,
+  .prose .story__beat[data-beat="4"] .story__figure,
+  .prose .story__beat[data-beat="6"] .story__figure {
+    float: left;
+    margin: 0.35rem 1.75rem 1.25rem 0;
+  }
+
+  /* No `clear` here on purpose: posts published before the markup change have
+     the heading after the figure, and clearing would push it below the image
+     and reintroduce the gap this rule set exists to remove. */
+  .prose .story__beat-heading { padding-top: 0.25rem; }
+
+  /* A beat whose text runs shorter than its picture would otherwise let the
+     image hang past the clearfix; a minimum height keeps the rhythm even. */
+  .prose .story__text { min-height: 2rem; }
+}
+
+.prose .story__moral {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  background: hsl(var(--primary) / 0.08);
+  border-left: 4px solid hsl(var(--primary));
+}

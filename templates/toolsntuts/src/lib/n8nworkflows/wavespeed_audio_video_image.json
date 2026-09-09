@@ -1,0 +1,519 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "5615f696-5b72-4d1a-b2c4-ee0379bf366f",
+        "options": {
+          "responseMode": "lastNode"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -832,
+        240
+      ],
+      "id": "a8375e1e-05b2-436f-af2a-6aa0547a3a6e",
+      "name": "Webhook",
+      "webhookId": "5615f696-5b72-4d1a-b2c4-ee0379bf366f",
+      "notes": "Accepts: { prompt, type ('image'|'video'|'audio'), size, aspect_ratio, duration } from toolsntuts fallback OR legacy { mode, text, prompt, callbackUrl } from Xepho. responseMode=lastNode returns the Format Response node output as the HTTP response body."
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mode }}",
+                    "rightValue": "visual",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "leftValue": "={{ $json.body.type }}",
+                    "rightValue": "image",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mode }}",
+                    "rightValue": "video",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "leftValue": "={{ $json.body.type }}",
+                    "rightValue": "video",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.mode }}",
+                    "rightValue": "audio",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  },
+                  {
+                    "leftValue": "={{ $json.body.mode }}",
+                    "rightValue": "podcast",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "or"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -608,
+        224
+      ],
+      "id": "5acd8764-7f75-46d7-a8c9-615fdb85d985",
+      "name": "Route by mode"
+    },
+    {
+      "parameters": {
+        "category": "text-to-image",
+        "model": "wavespeed-ai/flux-dev",
+        "requiredParameters": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "prompt": "={{ $('Webhook').item.json.body.prompt }}"
+          },
+          "matchingColumns": [
+            "prompt"
+          ],
+          "schema": [
+            {
+              "id": "prompt",
+              "displayName": "Prompt (STRING) *",
+              "required": true,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "optionalParameters": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "size": "={{ $('Webhook').item.json.body.size || '1024*576' }}"
+          },
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "executionMode": "wait",
+        "pollingOptions": {}
+      },
+      "type": "n8n-nodes-wavespeed.waveSpeedTaskSubmit",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        48
+      ],
+      "id": "707ebadc-2e35-4aca-acf6-31d103eb7a7f",
+      "name": "WaveSpeed Image",
+      "credentials": {
+        "wavespeedApi": {
+          "id": "G2cfsFdZbAQ5PPnH",
+          "name": "toolsntuts"
+        }
+      },
+      "notes": "Flux Dev — photorealistic storyboard images. Size uses * separator (e.g. 1024*576)."
+    },
+    {
+      "parameters": {
+        "category": "text-to-video",
+        "model": "kwaivgi/kling-v3-turbo-std/text-to-video",
+        "requiredParameters": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [
+            "prompt"
+          ],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "optionalParameters": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "prompt": "={{ $('Webhook').item.json.body.prompt }}",
+            "aspect_ratio": "={{ $('Webhook').item.json.body.aspect_ratio || '16:9' }}",
+            "duration": "={{ $('Webhook').item.json.body.duration || '5' }}",
+            "negative_prompt": "animation, cartoon, CGI render, 3D graphics, digital painting, synthetic skin, plastic sheen, mannequin, uncanny valley, artificial studio lighting, watermark, text overlay, blurry, overexposed, flat colours, AI artifact, robotic motion, stiff movement"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "prompt",
+              "displayName": "Prompt (STRING)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "aspect_ratio",
+              "displayName": "Aspect Ratio (OPTIONS) [Default: \"16:9\"]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "16:9",
+                  "value": "16:9",
+                  "description": "16:9"
+                },
+                {
+                  "name": "9:16",
+                  "value": "9:16",
+                  "description": "9:16"
+                },
+                {
+                  "name": "1:1",
+                  "value": "1:1",
+                  "description": "1:1"
+                }
+              ]
+            },
+            {
+              "id": "duration",
+              "displayName": "Duration (OPTIONS) [Default: \"5\"]",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "5",
+                  "value": "5",
+                  "description": "5"
+                },
+                {
+                  "name": "10",
+                  "value": "10",
+                  "description": "10"
+                }
+              ]
+            },
+            {
+              "id": "negative_prompt",
+              "displayName": "Negative Prompt (STRING)",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "executionMode": "wait",
+        "pollingOptions": {}
+      },
+      "type": "n8n-nodes-wavespeed.waveSpeedTaskSubmit",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        240
+      ],
+      "id": "86bb5e7a-aed0-4f1c-8528-49175aab6c19",
+      "name": "WaveSpeed Video",
+      "credentials": {
+        "wavespeedApi": {
+          "id": "G2cfsFdZbAQ5PPnH",
+          "name": "toolsntuts"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "category": "text-to-audio",
+        "model": "google/gemini-2.5-flash/text-to-speech",
+        "requiredParameters": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "text": "={{ $('Webhook').item.json.body.text }}",
+            "language": "en",
+            "speakers": "male"
+          },
+          "matchingColumns": [
+            "text"
+          ],
+          "schema": [
+            {
+              "id": "text",
+              "displayName": "Text (STRING) *",
+              "required": true,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "language",
+              "displayName": "Language (STRING) *",
+              "required": true,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "speakers",
+              "displayName": "Speakers (COLLECTION) *",
+              "required": true,
+              "defaultMatch": false,
+              "canBeUsedToMatch": false,
+              "display": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "optionalParameters": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "executionMode": "wait",
+        "pollingOptions": {}
+      },
+      "type": "n8n-nodes-wavespeed.waveSpeedTaskSubmit",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        432
+      ],
+      "id": "a057ead5-0666-47ec-86ba-9c31a9490a9d",
+      "name": "WaveSpeed Audio",
+      "credentials": {
+        "wavespeedApi": {
+          "id": "G2cfsFdZbAQ5PPnH",
+          "name": "toolsntuts"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nconst url = d?.outputs?.[0] ?? d?.url ?? d?.image_url ?? '';\nconst wavespeed_usd = d?.total_cost ?? d?.cost ?? 0;\nreturn [{ json: { url, type: 'image', wavespeed_usd } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        48
+      ],
+      "id": "c1a2b3d4-e5f6-7890-abcd-ef1234567800",
+      "name": "Format Response Image"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nconst url = d?.outputs?.[0] ?? d?.url ?? d?.video_url ?? '';\nconst wavespeed_usd = d?.total_cost ?? d?.cost ?? 0;\nreturn [{ json: { url, type: 'video', wavespeed_usd } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        240
+      ],
+      "id": "d2e3f4a5-b6c7-8901-bcde-f12345678901",
+      "name": "Format Response Video"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nconst url = d?.outputs?.[0] ?? d?.audio_url ?? d?.url ?? '';\nconst wavespeed_usd = d?.total_cost ?? d?.cost ?? 0;\nreturn [{ json: { url, type: 'audio', wavespeed_usd } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -160,
+        432
+      ],
+      "id": "e3f4a5b6-c7d8-9012-cdef-123456789012",
+      "name": "Format Response Audio"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route by mode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by mode": {
+      "main": [
+        [
+          {
+            "node": "WaveSpeed Image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WaveSpeed Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WaveSpeed Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WaveSpeed Image": {
+      "main": [
+        [
+          {
+            "node": "Format Response Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WaveSpeed Video": {
+      "main": [
+        [
+          {
+            "node": "Format Response Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WaveSpeed Audio": {
+      "main": [
+        [
+          {
+            "node": "Format Response Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {
+    "Webhook": [
+      {
+        "headers": {
+          "host": "n8n.xepho.io",
+          "user-agent": "Bun/1.3.14",
+          "content-length": "842",
+          "accept": "*/*",
+          "accept-encoding": "gzip, br",
+          "cdn-loop": "cloudflare; loops=1",
+          "cf-connecting-ip": "213.136.66.173",
+          "cf-ipcountry": "FR",
+          "cf-ray": "a102d54caa18dcb1-FRA",
+          "cf-visitor": "{\"scheme\":\"https\"}",
+          "content-type": "application/json",
+          "x-forwarded-for": "172.71.148.27",
+          "x-forwarded-host": "n8n.xepho.io",
+          "x-forwarded-port": "443",
+          "x-forwarded-proto": "https",
+          "x-forwarded-server": "0eaa06ebdb8f",
+          "x-real-ip": "172.71.148.27"
+        },
+        "params": {},
+        "query": {},
+        "body": {
+          "jobToken": "4f150b01-656c-4de5-9699-73f2b60e8359",
+          "lessonId": "c0731e00-001e-4f63-97da-d443e74b1697",
+          "mode": "visual",
+          "text": "Maintenance and Troubleshooting Battery health checks, Fuel system care, Common fault codes Analyze common generator faults and perform routine maintenance procedures. Execute a maintenance checklist on a training unit and diagnose two injected faults 4 troubleshooting scenarios [An] + 1 maintenance log [Ap]",
+          "prompt": "Maintenance and Troubleshooting. Maintenance and Troubleshooting Battery health checks, Fuel system care, Common fault codes Analyze common generator faults and perform routine maintenance procedures. Execute a maintenance checklist on a training unit and diagnose two injected faults 4 troubleshooting scenarios [An] + 1 maintenance log [Ap]",
+          "callbackUrl": "https://xepho.io/api/media/callback"
+        },
+        "webhookUrl": "https://n8n.xepho.io/webhook/5615f696-5b72-4d1a-b2c4-ee0379bf366f",
+        "executionMode": "production"
+      }
+    ]
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ebb0de72e6e5e66183d81ba73a5c19d4fdd4710880d12941c649b755f7f5e82f"
+  }
+}
